@@ -1,4 +1,5 @@
 import { type GameCategory } from "@shared/schema";
+import { playCardClickSound } from "@/lib/soundEffects";
 
 interface GameCardProps {
   category: GameCategory;

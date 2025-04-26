@@ -5,6 +5,7 @@ import GameCard from "@/components/GameCard";
 import ScoreBoard from "@/components/ScoreBoard";
 import DataImport from "@/components/DataImport";
 import { useGameContext } from "@/context/GameContext";
+import { playWelcomeSound } from "@/lib/soundEffects";
 
 const HomePage = () => {
   const [_, setLocation] = useLocation();
@@ -15,11 +16,12 @@ const HomePage = () => {
     queryKey: ["/api/categories"],
   });
 
-  // Show notification when returning to homepage
+  // Show notification and play sound when returning to homepage
   useEffect(() => {
     // Only show welcome notification if we have categories loaded
     if (categories && categories.length > 0) {
       showNotification("مرحباً بك في منصة ألعاب الشايب");
+      playWelcomeSound(); // Play welcome sound effect
     }
   }, [categories, showNotification]);
 
@@ -59,7 +61,10 @@ const HomePage = () => {
             <GameCard
               key={category.id}
               category={category}
-              onClick={() => setLocation(`/game/${category.id}`)}
+              onClick={() => {
+                playCardClickSound();
+                setLocation(`/game/${category.id}`);
+              }}
             />
           ))
         )}
