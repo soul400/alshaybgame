@@ -46,6 +46,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.json(questions);
     }
   });
+  
+  // حذف جميع الأسئلة (إعادة ضبط)
+  app.delete("/api/questions", async (req, res) => {
+    try {
+      await storage.deleteAllGameQuestions();
+      return res.status(200).json({ message: "All questions have been deleted successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: "Failed to delete all questions" });
+    }
+  });
 
   app.post("/api/questions", async (req, res) => {
     try {

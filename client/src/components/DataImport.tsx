@@ -1,14 +1,17 @@
 import { useRef, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { parseExcelFile } from "@/lib/excelParser";
 import { useGameContext } from "@/context/GameContext";
+import { Button } from "@/components/ui/button";
 
 const DataImport = () => {
   const [isUploading, setIsUploading] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { showNotification } = useGameContext();
+  const queryClient = useQueryClient();
 
   // Mutation to upload Excel data
   const uploadMutation = useMutation({
@@ -33,6 +36,34 @@ const DataImport = () => {
       showNotification("فشل في استيراد الأسئلة", "error");
     },
   });
+
+  // Mutation لإعادة ضبط الأسئلة (مسح جميع الأسئلة)
+  const resetMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("DELETE", "/api/questions", {});
+      return res.json();
+    },
+    onSuccess: () => {
+      setIsResetting(false);
+      showNotification("تم إعادة ضبط جميع الأسئلة بنجاح");
+      
+      // إعادة تحميل البيانات
+      queryClient.invalidateQueries({ queryKey: ["/api/questions"] });
+    },
+    onError: (error) => {
+      console.error("Error resetting questions:", error);
+      setIsResetting(false);
+      showNotification("فشل في إعادة ضبط الأسئلة", "error");
+    }
+  });
+
+  // وظيفة إعادة ضبط الأسئلة
+  const handleReset = () => {
+    if (window.confirm("هل أنت متأكد من رغبتك في إعادة ضبط جميع الأسئلة؟ سيتم حذف جميع الأسئلة المستوردة.")) {
+      setIsResetting(true);
+      resetMutation.mutate();
+    }
+  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -107,6 +138,35 @@ const DataImport = () => {
             <li>answer: الإجابة الصحيحة</li>
             <li>letterCount: عدد حروف الإجابة</li>
           </ul>
+        </div>
+        
+        {/* زر إعادة ضبط الأسئلة */}
+        <div className="mt-8 border-t border-gray-200 pt-6 w-full">
+          <h3 className="text-xl font-bold mb-4 text-center">إعادة ضبط الألعاب</h3>
+          <div className="flex justify-center">
+            <Button 
+              variant="destructive" 
+              size="lg"
+              onClick={handleReset}
+              disabled={isResetting}
+              className="flex items-center gap-2"
+            >
+              {isResetting ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>جاري إعادة الضبط...</span>
+                </>
+              ) : (
+                <>
+                  <i className="fas fa-trash-alt ml-2"></i>
+                  <span>مسح وإعادة تحميل كل الأسئلة</span>
+                </>
+              )}
+            </Button>
+          </div>
+          <p className="text-sm text-gray-500 mt-4 text-center">
+            هذا الإجراء سيؤدي إلى حذف جميع الأسئلة الحالية وإعادة الضبط. تأكد من وجود نسخة احتياطية إذا كنت ترغب في استعادة البيانات.
+          </p>
         </div>
       </div>
     </div>
