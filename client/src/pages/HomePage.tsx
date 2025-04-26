@@ -19,7 +19,7 @@ const HomePage = () => {
   useEffect(() => {
     // Only show welcome notification if we have categories loaded
     if (categories && categories.length > 0) {
-      showNotification("مرحباً بك في منصة ألعاب الكلمات");
+      showNotification("مرحباً بك في منصة ألعاب الشايب");
     }
   }, [categories, showNotification]);
 
@@ -27,11 +27,11 @@ const HomePage = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="text-center mb-12 pt-10">
-        <h1 className="text-5xl font-bold text-white bg-secondary inline-block px-8 py-4 rounded-lg shadow-lg mb-4 transform transition hover:scale-105">
-          ألعاب الكلمات
+        <h1 className="text-5xl font-bold text-white bg-secondary inline-block px-8 py-4 rounded-lg shadow-lg mb-4 transform transition hover:scale-105 animate-pulse">
+          ألعاب الشايب
         </h1>
         <p className="text-2xl text-[#333333] bg-white/80 rounded-full px-6 py-2 inline-block">
-          منصة ألعاب ترفيهية للتجمعات والمناسبات
+          منصة ألعاب تراثية للتجمعات والمناسبات
         </p>
       </div>
 
