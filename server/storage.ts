@@ -71,13 +71,13 @@ export class MemStorage implements IStorage {
 
   private initializeDefaultGameCategories() {
     const defaultCategories: InsertGameCategory[] = [
-      { name: 'بحر حرب', icon: 'fa-water', description: 'ألغاز مائية ممتعة' },
+      { name: 'بحر حرب', icon: 'fa-water', description: 'عكس الكلمات بنفس الحروف' },
       { name: 'تنقيص حرف', icon: 'fa-minus-circle', description: 'اكتشف الكلمة مع نقص حرف' },
       { name: 'متلازمة', icon: 'fa-link', description: 'اربط بين الكلمات المتلازمة' },
       { name: 'بتر أطراف', icon: 'fa-cut', description: 'كلمات مع حذف أطرافها' },
-      { name: 'نادل حمام', icon: 'fa-bath', description: 'ألغاز لغوية مضحكة' },
+      { name: 'نادل حمام', icon: 'fa-bath', description: 'إيجاد الكلمات مع تغيير حرف من كل كلمة' },
       { name: 'معادلة', icon: 'fa-equals', description: 'حل المعادلات اللغوية' },
-      { name: 'بحر بحر', icon: 'fa-water', description: 'تحدي الكلمات البحرية' },
+      { name: 'بحر بحر', icon: 'fa-water', description: 'إيجاد الكلمات نفس الحروف والترتيب' },
       { name: 'تخمين أسماء', icon: 'fa-user-tag', description: 'خمن الأسماء من التلميحات' },
     ];
     
