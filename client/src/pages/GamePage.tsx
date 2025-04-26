@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation, useParams } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import GameContent from "@/components/GameContent";
 import GameScoreUpdater from "@/components/GameScoreUpdater";
 import { useGameContext } from "@/context/GameContext";
 import { playTimerEndSound } from "@/lib/soundEffects";
+import { shuffleArray } from "@/lib/utils";
 
 const GamePage = () => {
   const params = useParams<{ gameId: string }>();
@@ -22,7 +23,10 @@ const GamePage = () => {
     queryKey: [`/api/categories/${gameId}`],
   });
 
-  // Fetch questions for this category
+  // حالة لتخزين الأسئلة العشوائية المخلوطة
+  const [shuffledQuestions, setShuffledQuestions] = useState<any[]>([]);
+  
+  // جلب الأسئلة لهذه الفئة
   const {
     data: questions,
     isLoading: isLoadingQuestions,
@@ -37,10 +41,19 @@ const GamePage = () => {
       return response.json();
     },
   });
+  
+  // خلط الأسئلة عشوائيًا عند تحميلها لأول مرة
+  useEffect(() => {
+    if (questions && questions.length > 0) {
+      // خلط الأسئلة بشكل عشوائي وتخزينها في الحالة
+      const randomQuestions = shuffleArray(questions);
+      setShuffledQuestions(randomQuestions);
+    }
+  }, [questions]);
 
-  // Current question
-  const currentQuestion = questions && questions.length > 0
-    ? questions[currentQuestionIndex % questions.length]
+  // السؤال الحالي (من الأسئلة المخلوطة)
+  const currentQuestion = shuffledQuestions.length > 0
+    ? shuffledQuestions[currentQuestionIndex % shuffledQuestions.length]
     : null;
 
   // Timer effect

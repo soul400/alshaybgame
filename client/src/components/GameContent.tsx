@@ -12,14 +12,14 @@ const GameContent = ({ question, showAnswer, onShowAnswer }: GameContentProps) =
   return (
     <div className="bg-white rounded-xl shadow-xl p-6 mb-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div className="bg-neutral p-4 rounded-lg">
-          <h3 className="text-xl font-bold mb-2 text-primary">التلميح الأول</h3>
-          <p className="text-lg">{question.clue1}</p>
+        <div className="bg-blue-50 border-2 border-blue-200 p-4 rounded-lg shadow-sm">
+          <h3 className="text-xl font-bold mb-2 text-blue-800 bg-blue-100 rounded-md px-3 py-1 inline-block">التلميح الأول</h3>
+          <p className="text-lg text-gray-900 mt-2">{question.clue1}</p>
         </div>
 
-        <div className="bg-neutral p-4 rounded-lg">
-          <h3 className="text-xl font-bold mb-2 text-primary">التلميح الثاني</h3>
-          <p className="text-lg">{question.clue2}</p>
+        <div className="bg-green-50 border-2 border-green-200 p-4 rounded-lg shadow-sm">
+          <h3 className="text-xl font-bold mb-2 text-green-800 bg-green-100 rounded-md px-3 py-1 inline-block">التلميح الثاني</h3>
+          <p className="text-lg text-gray-900 mt-2">{question.clue2}</p>
         </div>
       </div>
 
