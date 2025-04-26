@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 96%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 207 90% 54%;  /* #2196F3 - Blue */
+  --primary-foreground: 211 100% 99%;
+  --secondary: 340 82% 59%; /* #FF4081 - Pink */
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 122 39% 49%; /* #4CAF50 - Green */
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%; /* #FF5252 - Red */
+  --destructive-foreground: 60 9.1% 97.8%;
+  --warning: 54 100% 62%; /* #FFEB3B - Yellow */
+  --warning-foreground: 20 14.3% 4.1%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 340 82% 59%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 122 39% 49%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --warning: 54 100% 62%;
+  --warning-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    direction: rtl;
+  }
+
+  body {
+    @apply font-tajawal bg-background text-foreground bg-fixed bg-no-repeat bg-cover bg-center;
+    background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+  }
+}
+
+/* Custom utility classes */
+@layer components {
+  .game-card {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .game-card:hover {
+    @apply transform -translate-y-2 shadow-lg;
+  }
+  
+  .btn-glow {
+    animation: glow 1.5s infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 5px -5px hsl(var(--secondary));
+    }
+    to {
+      box-shadow: 0 0 20px 5px hsl(var(--secondary));
+    }
+  }
+  
+  .timer-animation {
+    @apply transition-all duration-1000 ease-linear;
+  }
+  
+  .confetti {
+    @apply fixed w-2.5 h-2.5 z-50;
+    animation: confetti-fall 5s ease-in-out infinite;
+  }
+  
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+}
+
+/* Font is already imported via @import at the top of the file */
