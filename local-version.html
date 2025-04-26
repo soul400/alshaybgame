@@ -18,24 +18,31 @@
     :root {
       --primary: #2196F3; /* أزرق */
       --primary-dark: #1976D2;
-      --secondary: #FF4081; /* وردي */
-      --secondary-dark: #C2185B;
+      --secondary: #e83e8c; /* وردي */
+      --secondary-dark: #d5317c;
       --accent: #4CAF50; /* أخضر */
       --accent-dark: #388E3C;
       --warning: #FFC107; /* أصفر */
       --warning-dark: #FFA000;
       --error: #FF5252; /* أحمر */
-      --bg-gradient-1: linear-gradient(to right, var(--primary), var(--primary-dark));
-      --bg-gradient-2: linear-gradient(to right, var(--secondary), var(--secondary-dark));
-      --bg-gradient-3: linear-gradient(to right, var(--accent), var(--accent-dark));
-      --bg-gradient-4: linear-gradient(to right, var(--warning), var(--warning-dark));
+      
+      /* ألوان البطاقات الثابتة حسب الصورة */
+      --card1-bg: #3498db; /* أزرق */
+      --card2-bg: #c04b8f; /* وردي */
+      --card3-bg: #27ae60; /* أخضر */
+      --card4-bg: #f39c12; /* برتقالي */
+      --card5-bg: #e74c3c; /* أحمر */
+      --card6-bg: #3498db; /* أزرق - مكرر */
+      --card7-bg: #8e44ad; /* بنفسجي */
+      --card8-bg: #16a085; /* فيروزي */
+      
       --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       --bg-main: #F5F7FA;
       --text-dark: #1A365D;
       --text-medium: #333333;
       --text-light: #666666;
-      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-bg: rgba(255, 255, 255, 0.98);
       --border-radius: 0.75rem;
     }
 
@@ -95,7 +102,7 @@
     /* Game Grid */
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin-bottom: 3rem;
     }
@@ -125,10 +132,14 @@
       position: relative;
     }
 
-    .game-card-header.bg-1 { background: var(--bg-gradient-1); }
-    .game-card-header.bg-2 { background: var(--bg-gradient-2); }
-    .game-card-header.bg-3 { background: var(--bg-gradient-3); }
-    .game-card-header.bg-4 { background: var(--bg-gradient-4); }
+    .game-card-header.bg-1 { background: var(--card1-bg); }
+    .game-card-header.bg-2 { background: var(--card2-bg); }
+    .game-card-header.bg-3 { background: var(--card3-bg); }
+    .game-card-header.bg-4 { background: var(--card4-bg); }
+    .game-card-header.bg-5 { background: var(--card5-bg); }
+    .game-card-header.bg-6 { background: var(--card6-bg); }
+    .game-card-header.bg-7 { background: var(--card7-bg); }
+    .game-card-header.bg-8 { background: var(--card8-bg); }
 
     .game-card-icon {
       font-size: 3.5rem;
@@ -574,13 +585,37 @@
         id: 3, 
         name: "مشاركة", 
         description: "شارك معلومة أو قصة حسب الموضوع", 
-        icon: "fa-share-alt" 
+        icon: "fa-link" 
       },
       { 
         id: 4, 
-        name: "نادي خطأ", 
-        description: "صحح الأخطاء في الجملة", 
-        icon: "fa-bath" 
+        name: "بتر أطراف", 
+        description: "احذف حرف في بداية أو نهاية الكلمة", 
+        icon: "fa-cut" 
+      },
+      { 
+        id: 5, 
+        name: "تخمين أسماء", 
+        description: "خمن اسم الشخصية أو المشهور", 
+        icon: "fa-user" 
+      },
+      { 
+        id: 6, 
+        name: "بحر بحر", 
+        description: "ابدأ كلمة بنفس الحرف الأخير من الكلمة السابقة", 
+        icon: "fa-water" 
+      },
+      { 
+        id: 7, 
+        name: "معادلة", 
+        description: "حل المعادلة اللغوية", 
+        icon: "fa-equals" 
+      },
+      { 
+        id: 8, 
+        name: "نادل حمام", 
+        description: "يقدم اللاعب كلمة مع تغيير في نطقها", 
+        icon: "fa-shower" 
       }
     ];
 
@@ -793,7 +828,7 @@
         const card = document.createElement("div");
         card.className = "game-card";
         card.innerHTML = `
-          <div class="game-card-header bg-${(index % 4) + 1}">
+          <div class="game-card-header bg-${index + 1}">
             <i class="game-card-icon fas ${category.icon}"></i>
           </div>
           <div class="game-card-body">
