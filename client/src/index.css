@@ -98,14 +98,15 @@
   }
   
   .game-card-title {
-    @apply font-bold text-xl mb-2 text-primary-foreground;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    @apply font-bold text-xl mb-2;
+    color: #1a365d; /* داكن للقراءة بشكل أفضل */
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
     transition: all 0.3s ease;
   }
   
   .game-card:hover .game-card-title {
     transform: scale(1.05);
-    color: white;
+    color: #0f2942; /* لون أغمق عند التحويم */
   }
   
   .btn-glow {

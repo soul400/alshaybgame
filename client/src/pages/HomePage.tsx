@@ -5,7 +5,7 @@ import GameCard from "@/components/GameCard";
 import ScoreBoard from "@/components/ScoreBoard";
 import DataImport from "@/components/DataImport";
 import { useGameContext } from "@/context/GameContext";
-import { playWelcomeSound } from "@/lib/soundEffects";
+import { playWelcomeSound, playCardClickSound } from "@/lib/soundEffects";
 
 const HomePage = () => {
   const [_, setLocation] = useLocation();

@@ -35,7 +35,7 @@ const GameCard = ({ category, onClick }: GameCardProps) => {
       </div>
       <div className="p-4 text-center">
         <h3 className="game-card-title">{category.name}</h3>
-        <p className="text-gray-600 text-sm mt-2 font-medium">{category.description}</p>
+        <p className="text-gray-900 text-sm mt-2 font-medium">{category.description}</p>
       </div>
     </div>
   );
