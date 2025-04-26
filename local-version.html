@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ألعاب الشايب</title>
+  
+  <!-- Font Awesome للأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts - Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Variables */
+    :root {
+      --primary: #2196F3; /* أزرق */
+      --primary-dark: #1976D2;
+      --secondary: #FF4081; /* وردي */
+      --secondary-dark: #C2185B;
+      --accent: #4CAF50; /* أخضر */
+      --accent-dark: #388E3C;
+      --warning: #FFC107; /* أصفر */
+      --warning-dark: #FFA000;
+      --error: #FF5252; /* أحمر */
+      --bg-gradient-1: linear-gradient(to right, var(--primary), var(--primary-dark));
+      --bg-gradient-2: linear-gradient(to right, var(--secondary), var(--secondary-dark));
+      --bg-gradient-3: linear-gradient(to right, var(--accent), var(--accent-dark));
+      --bg-gradient-4: linear-gradient(to right, var(--warning), var(--warning-dark));
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --card-hover-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      --bg-main: #F5F7FA;
+      --text-dark: #1A365D;
+      --text-medium: #333333;
+      --text-light: #666666;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --border-radius: 0.75rem;
+    }
+
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, rgba(245, 247, 250, 0.95), rgba(230, 236, 245, 0.95)),
+                  url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a3bce0' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-attachment: fixed;
+      color: var(--text-medium);
+      min-height: 100vh;
+      direction: rtl;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .app-title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      background-color: var(--secondary);
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      margin-bottom: 1rem;
+      animation: pulse 2s infinite;
+      transform-origin: center;
+    }
+
+    .app-subtitle {
+      font-size: 1.25rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      display: inline-block;
+    }
+
+    /* Game Grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Game Card */
+    .game-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .game-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .game-card-header {
+      height: 10rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .game-card-header.bg-1 { background: var(--bg-gradient-1); }
+    .game-card-header.bg-2 { background: var(--bg-gradient-2); }
+    .game-card-header.bg-3 { background: var(--bg-gradient-3); }
+    .game-card-header.bg-4 { background: var(--bg-gradient-4); }
+
+    .game-card-icon {
+      font-size: 3.5rem;
+      color: white;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.5s ease;
+    }
+
+    .game-card:hover .game-card-icon {
+      transform: scale(1.25);
+    }
+
+    .game-card-body {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .game-card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .game-card-desc {
+      color: var(--text-medium);
+      font-size: 0.9rem;
+    }
+
+    /* Scoreboard */
+    .scoreboard {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .scoreboard-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+    }
+
+    /* Add Player Form */
+    .add-player-form {
+      display: flex;
+      margin-bottom: 1.5rem;
+      gap: 0.5rem;
+    }
+
+    .input-field {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: var(--primary);
+      color: white;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+    }
+
+    .btn-accent:hover {
+      background-color: var(--accent-dark);
+    }
+
+    .btn-warning {
+      background-color: var(--warning);
+      color: var(--text-dark);
+    }
+
+    .btn-warning:hover {
+      background-color: var(--warning-dark);
+    }
+
+    .btn-error {
+      background-color: var(--error);
+    }
+
+    .btn-error:hover {
+      background-color: #D32F2F;
+    }
+
+    /* Players List */
+    .players-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .player-item {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .player-score {
+      background-color: var(--accent);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-weight: bold;
+    }
+
+    /* Data Import Section */
+    .import-section {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+
+    .import-form {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .file-input-label {
+      background-color: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .file-input-label:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-name {
+      margin-right: 1rem;
+      flex: 1;
+    }
+
+    /* Game Page */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .game-container {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .question-display {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .question-text {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+    }
+
+    .answer-container {
+      background-color: rgba(76, 175, 80, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .answer-text {
+      font-size: 1.25rem;
+      color: var(--accent-dark);
+    }
+
+    .game-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    /* Score Update List */
+    .score-update-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .score-update-item {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .score-btn {
+      background-color: var(--accent);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .player-name {
+      flex: 1;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: none;
+      max-width: 80%;
+      text-align: center;
+    }
+
+    .notification.error {
+      background-color: var(--error);
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .app-title {
+        font-size: 2rem;
+        padding: 0.5rem 1.5rem;
+      }
+
+      .app-subtitle {
+        font-size: 1rem;
+      }
+
+      .game-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+
+      .players-list,
+      .score-update-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+
+      .game-card-header {
+        height: 8rem;
+      }
+
+      .game-card-icon {
+        font-size: 2.5rem;
+      }
+
+      .game-actions {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .import-form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Notification -->
+  <div id="notification" class="notification"></div>
+
+  <!-- Home Page -->
+  <div id="home-page" class="page active">
+    <div class="container">
+      <header>
+        <h1 class="app-title">ألعاب الشايب</h1>
+        <p class="app-subtitle">منصة ألعاب تراثية للتجمعات والمناسبات</p>
+      </header>
+
+      <!-- Game Categories -->
+      <div class="game-grid" id="game-grid">
+        <!-- Categories will be dynamically added here -->
+      </div>
+
+      <!-- Scoreboard -->
+      <div class="scoreboard">
+        <h2 class="scoreboard-title">لوحة النتائج</h2>
+        
+        <form id="add-player-form" class="add-player-form">
+          <input type="text" id="player-name" class="input-field" placeholder="أدخل اسم اللاعب" required>
+          <button type="submit" class="btn">إضافة لاعب</button>
+        </form>
+        
+        <div id="players-list" class="players-list">
+          <!-- Players will be dynamically added here -->
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center;">
+          <button id="reset-scores" class="btn btn-warning">إعادة تعيين النقاط</button>
+        </div>
+      </div>
+
+      <!-- Data Import -->
+      <div class="import-section">
+        <h2 class="scoreboard-title">استيراد الأسئلة</h2>
+        
+        <div class="import-form">
+          <label for="excel-file" class="file-input-label">
+            <i class="fas fa-file-excel"></i> اختر ملف Excel
+          </label>
+          <input type="file" id="excel-file" class="file-input" accept=".xlsx,.xls,.csv">
+          <span id="file-name" class="file-name">لم يتم اختيار ملف</span>
+          <button id="clear-questions" class="btn btn-error">مسح جميع الأسئلة</button>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 0.9rem;">
+          <p>يجب أن يحتوي الملف على الأعمدة: categoryId، question، answer</p>
+          <p style="margin-top: 5px;">
+            <strong>أرقام الفئات:</strong> 
+            1 = بحر حرب، 
+            2 = تنقيص حرف، 
+            3 = مشاركة، 
+            4 = نادي خطأ
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Page -->
+  <div id="game-page" class="page">
+    <div class="container">
+      <header>
+        <h1 id="game-title" class="app-title">عنوان اللعبة</h1>
+      </header>
+
+      <!-- Game Content -->
+      <div class="game-container">
+        <div class="question-display">
+          <h2 class="question-text" id="question-text">سيظهر السؤال هنا</h2>
+          <div id="answer-container" class="answer-container">
+            <h3>الإجابة:</h3>
+            <p id="answer-text" class="answer-text">سيظهر الجواب هنا</p>
+          </div>
+        </div>
+
+        <div class="game-actions">
+          <button id="back-button" class="btn btn-warning">العودة للرئيسية</button>
+          <button id="show-answer" class="btn btn-accent">عرض الإجابة</button>
+          <button id="next-question" class="btn">السؤال التالي</button>
+        </div>
+      </div>
+
+      <!-- Score Update -->
+      <div class="scoreboard">
+        <h2 class="scoreboard-title">تحديث النقاط</h2>
+        <div id="score-update-list" class="score-update-list">
+          <!-- Players for score update will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script for XLSX parsing -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+  
+  <script>
+    // Default data
+    const defaultCategories = [
+      { 
+        id: 1, 
+        name: "بحر حرب", 
+        description: "قل كلمة تبدأ بالحرف المطلوب", 
+        icon: "fa-water" 
+      },
+      { 
+        id: 2, 
+        name: "تنقيص حرف", 
+        description: "استبدل حرف لتكوين كلمة جديدة", 
+        icon: "fa-minus-circle" 
+      },
+      { 
+        id: 3, 
+        name: "مشاركة", 
+        description: "شارك معلومة أو قصة حسب الموضوع", 
+        icon: "fa-share-alt" 
+      },
+      { 
+        id: 4, 
+        name: "نادي خطأ", 
+        description: "صحح الأخطاء في الجملة", 
+        icon: "fa-bath" 
+      }
+    ];
+
+    // Sample questions
+    const sampleQuestions = [
+      {
+        id: 1,
+        categoryId: 1,
+        question: "اذكر كلمة تبدأ بحرف الميم",
+        answer: "منزل، مدرسة، مطار"
+      },
+      {
+        id: 2,
+        categoryId: 1,
+        question: "اذكر اسم حيوان يبدأ بحرف الجيم",
+        answer: "جمل"
+      },
+      {
+        id: 3,
+        categoryId: 2,
+        question: "استبدل حرف في كلمة 'سالم' لتصبح اسم حيوان",
+        answer: "جمل (استبدال حرف س بـ ج و حرف ل بـ م)"
+      },
+      {
+        id: 4,
+        categoryId: 3,
+        question: "شارك معلومة عن الفضاء",
+        answer: "إجابة مفتوحة"
+      },
+      {
+        id: 5,
+        categoryId: 4,
+        question: "صحح الخطأ: 'ذهبت إلا المدرسة'",
+        answer: "ذهبت إلى المدرسة"
+      }
+    ];
+
+    // App state
+    let state = {
+      categories: [],
+      questions: [],
+      players: [],
+      currentCategory: null,
+      currentQuestion: null
+    };
+
+    // DOM Elements
+    const homePage = document.getElementById("home-page");
+    const gamePage = document.getElementById("game-page");
+    const gameGrid = document.getElementById("game-grid");
+    const playersList = document.getElementById("players-list");
+    const scoreUpdateList = document.getElementById("score-update-list");
+    const gameTitle = document.getElementById("game-title");
+    const questionText = document.getElementById("question-text");
+    const answerContainer = document.getElementById("answer-container");
+    const answerText = document.getElementById("answer-text");
+    const notification = document.getElementById("notification");
+    const playerNameInput = document.getElementById("player-name");
+    const addPlayerForm = document.getElementById("add-player-form");
+    const fileInput = document.getElementById("excel-file");
+    const fileName = document.getElementById("file-name");
+
+    // Sound effects (simple beep since we can't include audio files)
+    function playSound(type) {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      switch(type) {
+        case 'correct':
+          oscillator.frequency.value = 800;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.1;
+          oscillator.start();
+          setTimeout(() => oscillator.stop(), 200);
+          break;
+        case 'click':
+          oscillator.frequency.value = 500;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.05;
+          oscillator.start();
+          setTimeout(() => oscillator.stop(), 100);
+          break;
+        case 'welcome':
+          oscillator.frequency.value = 600;
+          oscillator.type = 'sine';
+          gainNode.gain.value = 0.1;
+          oscillator.start();
+          setTimeout(() => {
+            oscillator.frequency.value = 800;
+            setTimeout(() => oscillator.stop(), 200);
+          }, 200);
+          break;
+      }
+    }
+    
+    // Initialize app
+    function initApp() {
+      loadFromLocalStorage();
+      renderGameCategories();
+      renderPlayersList();
+      addEventListeners();
+      showNotification("مرحباً بك في منصة ألعاب الشايب");
+      playSound('welcome');
+    }
+
+    // Event Listeners
+    function addEventListeners() {
+      // Add Player Form
+      addPlayerForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const playerName = playerNameInput.value.trim();
+        if (playerName) {
+          addPlayer(playerName);
+          playerNameInput.value = "";
+        }
+      });
+
+      // Back Button
+      document.getElementById("back-button").addEventListener("click", function() {
+        navigateTo("home-page");
+      });
+
+      // Show Answer Button
+      document.getElementById("show-answer").addEventListener("click", function() {
+        if (state.currentQuestion) {
+          answerContainer.style.display = "block";
+          this.style.display = "none";
+          playSound('correct');
+        }
+      });
+
+      // Next Question Button
+      document.getElementById("next-question").addEventListener("click", function() {
+        loadQuestion();
+        playSound('click');
+      });
+
+      // Reset Scores Button
+      document.getElementById("reset-scores").addEventListener("click", function() {
+        if (confirm("هل أنت متأكد من رغبتك في إعادة تعيين جميع النقاط؟")) {
+          resetScores();
+        }
+      });
+
+      // Clear Questions Button
+      document.getElementById("clear-questions").addEventListener("click", function() {
+        if (confirm("هل أنت متأكد من رغبتك في مسح جميع الأسئلة؟")) {
+          clearQuestions();
+        }
+      });
+
+      // File Input Change
+      fileInput.addEventListener("change", function(e) {
+        if (this.files.length) {
+          fileName.textContent = this.files[0].name;
+          readExcelFile(this.files[0]);
+        } else {
+          fileName.textContent = "لم يتم اختيار ملف";
+        }
+      });
+    }
+
+    // Save to localStorage
+    function saveToLocalStorage() {
+      localStorage.setItem("alshayeb_categories", JSON.stringify(state.categories));
+      localStorage.setItem("alshayeb_questions", JSON.stringify(state.questions));
+      localStorage.setItem("alshayeb_players", JSON.stringify(state.players));
+    }
+
+    // Load from localStorage
+    function loadFromLocalStorage() {
+      try {
+        const categories = localStorage.getItem("alshayeb_categories");
+        const questions = localStorage.getItem("alshayeb_questions");
+        const players = localStorage.getItem("alshayeb_players");
+
+        state.categories = categories ? JSON.parse(categories) : defaultCategories;
+        state.questions = questions ? JSON.parse(questions) : sampleQuestions;
+        state.players = players ? JSON.parse(players) : [];
+
+        saveToLocalStorage(); // Save default values if nothing was loaded
+      } catch (error) {
+        console.error("Error loading data:", error);
+        state.categories = defaultCategories;
+        state.questions = sampleQuestions;
+        state.players = [];
+      }
+    }
+
+    // Show Notification
+    function showNotification(message, isError = false) {
+      notification.textContent = message;
+      notification.className = isError ? "notification error" : "notification";
+      notification.style.display = "block";
+      
+      setTimeout(() => {
+        notification.style.display = "none";
+      }, 3000);
+    }
+
+    // Render Game Categories
+    function renderGameCategories() {
+      gameGrid.innerHTML = "";
+      
+      state.categories.forEach((category, index) => {
+        const card = document.createElement("div");
+        card.className = "game-card";
+        card.innerHTML = `
+          <div class="game-card-header bg-${(index % 4) + 1}">
+            <i class="game-card-icon fas ${category.icon}"></i>
+          </div>
+          <div class="game-card-body">
+            <h3 class="game-card-title">${category.name}</h3>
+            <p class="game-card-desc">${category.description}</p>
+          </div>
+        `;
+        
+        card.addEventListener("click", () => {
+          startGame(category);
+          playSound('click');
+        });
+        
+        gameGrid.appendChild(card);
+      });
+    }
+
+    // Render Players List
+    function renderPlayersList() {
+      playersList.innerHTML = "";
+      scoreUpdateList.innerHTML = "";
+      
+      state.players.forEach(player => {
+        // Regular players list
+        const playerItem = document.createElement("div");
+        playerItem.className = "player-item";
+        playerItem.innerHTML = `
+          <span class="player-name">${player.name}</span>
+          <span class="player-score">${player.score || 0}</span>
+        `;
+        playersList.appendChild(playerItem);
+        
+        // Score update list
+        const scoreUpdateItem = document.createElement("div");
+        scoreUpdateItem.className = "score-update-item";
+        scoreUpdateItem.innerHTML = `
+          <button class="score-btn">+</button>
+          <span class="player-name">${player.name}</span>
+          <span class="player-score">${player.score || 0}</span>
+        `;
+        
+        const scoreBtn = scoreUpdateItem.querySelector(".score-btn");
+        scoreBtn.addEventListener("click", () => {
+          updatePlayerScore(player.id, 1);
+          playSound('correct');
+        });
+        
+        scoreUpdateList.appendChild(scoreUpdateItem);
+      });
+    }
+
+    // Add Player
+    function addPlayer(name) {
+      if (state.players.some(p => p.name === name)) {
+        showNotification("يوجد لاعب بهذا الاسم بالفعل", true);
+        return;
+      }
+      
+      const newPlayer = {
+        id: Date.now(),
+        name: name,
+        score: 0
+      };
+      
+      state.players.push(newPlayer);
+      saveToLocalStorage();
+      renderPlayersList();
+      showNotification(`تم إضافة اللاعب ${name}`);
+    }
+
+    // Update Player Score
+    function updatePlayerScore(playerId, points) {
+      const playerIndex = state.players.findIndex(p => p.id === playerId);
+      if (playerIndex !== -1) {
+        state.players[playerIndex].score += points;
+        saveToLocalStorage();
+        renderPlayersList();
+        showNotification(`تم إضافة ${points} نقطة لـ ${state.players[playerIndex].name}`);
+      }
+    }
+
+    // Reset Scores
+    function resetScores() {
+      state.players.forEach(player => {
+        player.score = 0;
+      });
+      saveToLocalStorage();
+      renderPlayersList();
+      showNotification("تم إعادة تعيين جميع النقاط");
+    }
+
+    // Clear Questions
+    function clearQuestions() {
+      state.questions = [];
+      saveToLocalStorage();
+      showNotification("تم مسح جميع الأسئلة");
+    }
+
+    // Read Excel File
+    function readExcelFile(file) {
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        let data;
+        
+        try {
+          const extension = file.name.split('.').pop().toLowerCase();
+          
+          if (extension === 'csv') {
+            // Handle CSV
+            const csv = e.target.result;
+            data = parseCSV(csv);
+          } else {
+            // Handle Excel
+            const arrayBuffer = e.target.result;
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+            const firstSheet = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheet];
+            data = XLSX.utils.sheet_to_json(worksheet);
+          }
+          
+          if (data && data.length > 0) {
+            processImportedQuestions(data);
+          } else {
+            showNotification("لم يتم العثور على بيانات في الملف", true);
+          }
+        } catch (error) {
+          console.error("Error processing file:", error);
+          showNotification("حدث خطأ أثناء معالجة الملف", true);
+        }
+      };
+      
+      if (file.name.endsWith('.csv')) {
+        reader.readAsText(file);
+      } else {
+        reader.readAsArrayBuffer(file);
+      }
+    }
+
+    // Parse CSV
+    function parseCSV(csv) {
+      const lines = csv.split('\n');
+      const headers = lines[0].split(',').map(h => h.trim());
+      
+      return lines.slice(1).map(line => {
+        if (!line.trim()) return null;
+        
+        const values = line.split(',').map(v => v.trim());
+        const obj = {};
+        
+        headers.forEach((header, i) => {
+          obj[header] = values[i];
+        });
+        
+        return obj;
+      }).filter(item => item !== null);
+    }
+
+    // Process Imported Questions
+    function processImportedQuestions(data) {
+      const newQuestions = data.map((row, index) => {
+        let categoryId = parseInt(row.categoryId, 10);
+        
+        // Validate categoryId
+        if (isNaN(categoryId) || categoryId < 1 || categoryId > 4) {
+          categoryId = 1; // Default to first category if invalid
+        }
+        
+        return {
+          id: Date.now() + index,
+          categoryId: categoryId,
+          question: row.question || "سؤال بدون محتوى",
+          answer: row.answer || "إجابة بدون محتوى"
+        };
+      });
+      
+      if (newQuestions.length > 0) {
+        state.questions = [...state.questions, ...newQuestions];
+        saveToLocalStorage();
+        showNotification(`تم استيراد ${newQuestions.length} سؤال بنجاح`);
+        fileInput.value = "";
+        fileName.textContent = "لم يتم اختيار ملف";
+      } else {
+        showNotification("لم يتم استيراد أي أسئلة. تأكد من تنسيق الملف", true);
+      }
+    }
+
+    // Start Game
+    function startGame(category) {
+      state.currentCategory = category;
+      gameTitle.textContent = category.name;
+      navigateTo("game-page");
+      loadQuestion();
+      showNotification(`بدأت لعبة ${category.name}`);
+    }
+
+    // Load Question
+    function loadQuestion() {
+      const categoryQuestions = state.questions.filter(q => q.categoryId === state.currentCategory.id);
+      
+      if (categoryQuestions.length === 0) {
+        questionText.textContent = "لا توجد أسئلة لهذه الفئة. يرجى استيراد الأسئلة من ملف Excel.";
+        answerContainer.style.display = "none";
+        document.getElementById("show-answer").style.display = "none";
+        return;
+      }
+      
+      const randomIndex = Math.floor(Math.random() * categoryQuestions.length);
+      state.currentQuestion = categoryQuestions[randomIndex];
+      
+      questionText.textContent = state.currentQuestion.question;
+      answerText.textContent = state.currentQuestion.answer;
+      
+      answerContainer.style.display = "none";
+      document.getElementById("show-answer").style.display = "inline-block";
+    }
+
+    // Navigate to page
+    function navigateTo(pageId) {
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+      });
+      document.getElementById(pageId).classList.add("active");
+    }
+
+    // Initialize on DOM load
+    document.addEventListener("DOMContentLoaded", initApp);
+  </script>
+</body>
+</html>
