@@ -22,6 +22,10 @@ export const gameQuestions = pgTable("game_questions", {
   clue2: text("clue2").notNull(),
   answer: text("answer").notNull(),
   letterCount: integer("letter_count").notNull(),
+  // الحقول الإضافية للألعاب الجديدة
+  imageUrl: text("image_url"), // رابط الصورة للعبة "صور"
+  extraClues: jsonb("extra_clues"), // معلومات إضافية للعبة "من أنا" (يمكن أن تحتوي على 6 تلميحات)
+  missingText: text("missing_text"), // النص المفقود للعبة "أكمل المثل"
 });
 
 export const insertGameQuestionSchema = createInsertSchema(gameQuestions).omit({
@@ -67,6 +71,16 @@ export const excelRowSchema = z.object({
   clue2: z.string(),
   answer: z.string(),
   letterCount: z.number().or(z.string().transform(val => parseInt(val))),
+  
+  // الحقول الاختيارية للألعاب الجديدة
+  imageUrl: z.string().optional(), // رابط الصورة للعبة "صور"
+  extraClue1: z.string().optional(), // تلميح إضافي 1 للعبة "من أنا"
+  extraClue2: z.string().optional(), // تلميح إضافي 2 للعبة "من أنا"
+  extraClue3: z.string().optional(), // تلميح إضافي 3 للعبة "من أنا"
+  extraClue4: z.string().optional(), // تلميح إضافي 4 للعبة "من أنا"
+  extraClue5: z.string().optional(), // تلميح إضافي 5 للعبة "من أنا"
+  extraClue6: z.string().optional(), // تلميح إضافي 6 للعبة "من أنا"
+  missingText: z.string().optional(), // النص المفقود للعبة "أكمل المثل"
 });
 
 export const excelDataSchema = z.array(excelRowSchema);

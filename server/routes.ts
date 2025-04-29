@@ -88,13 +88,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const category = categories.find(cat => cat.name === categoryName);
         const categoryId = category ? category.id : 1; // Default to first category if not found
         
-        return {
+        // إنشاء كائن الأسئلة الأساسي
+        const questionData: any = {
           categoryId,
           clue1: row.clue1,
           clue2: row.clue2,
           answer: row.answer,
           letterCount: typeof row.letterCount === 'string' ? parseInt(row.letterCount) : row.letterCount
         };
+        
+        // معالجة الحقول الخاصة بكل نوع من اللعبة
+        if (categoryName === 'صور' && row.imageUrl) {
+          questionData.imageUrl = row.imageUrl;
+        }
+        
+        if (categoryName === 'أكمل المثل' && row.missingText) {
+          questionData.missingText = row.missingText;
+        }
+        
+        if (categoryName === 'من أنا') {
+          // تجميع التلميحات الإضافية في مصفوفة
+          const extraCluesArray = [];
+          if (row.extraClue1) extraCluesArray.push(row.extraClue1);
+          if (row.extraClue2) extraCluesArray.push(row.extraClue2);
+          if (row.extraClue3) extraCluesArray.push(row.extraClue3);
+          if (row.extraClue4) extraCluesArray.push(row.extraClue4);
+          if (row.extraClue5) extraCluesArray.push(row.extraClue5);
+          if (row.extraClue6) extraCluesArray.push(row.extraClue6);
+          
+          if (extraCluesArray.length > 0) {
+            questionData.extraClues = extraCluesArray;
+          }
+        }
+        
+        return questionData;
       });
       
       const createdQuestions = await storage.bulkCreateGameQuestions(questions);

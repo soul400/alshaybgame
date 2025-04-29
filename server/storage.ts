@@ -72,13 +72,11 @@ export class MemStorage implements IStorage {
   private initializeDefaultGameCategories() {
     const defaultCategories: InsertGameCategory[] = [
       { name: 'بحر حرب', icon: 'fa-water', description: 'عكس الكلمات بنفس الحروف' },
-      { name: 'تنقيص حرف', icon: 'fa-minus-circle', description: 'اكتشف الكلمة مع نقص حرف' },
-      { name: 'متلازمة', icon: 'fa-link', description: 'اربط بين الكلمات المتلازمة' },
-      { name: 'بتر أطراف', icon: 'fa-cut', description: 'كلمات مع حذف أطرافها' },
-      { name: 'نادل حمام', icon: 'fa-bath', description: 'إيجاد الكلمات مع تغيير حرف من كل كلمة' },
-      { name: 'معادلة', icon: 'fa-equals', description: 'حل المعادلات اللغوية' },
-      { name: 'بحر بحر', icon: 'fa-water', description: 'إيجاد الكلمات نفس الحروف والترتيب' },
       { name: 'تخمين أسماء', icon: 'fa-user-tag', description: 'خمن الأسماء من التلميحات' },
+      { name: 'معادلة', icon: 'fa-equals', description: 'حل المعادلات اللغوية' },
+      { name: 'أكمل المثل', icon: 'fa-quote-right', description: 'إكمال المثل بالكلمات المفقودة' },
+      { name: 'من أنا', icon: 'fa-user-secret', description: 'تعرف على الشخصية من المعلومات المعطاة' },
+      { name: 'صور', icon: 'fa-image', description: 'التعرف على الصورة وما تمثله' },
     ];
     
     defaultCategories.forEach(category => {

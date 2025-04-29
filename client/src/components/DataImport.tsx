@@ -130,14 +130,37 @@ const DataImport = () => {
 
         <div className="mt-6 text-sm text-gray-600">
           <p className="font-bold mb-2">تنسيق الملف المطلوب:</p>
-          <ul className="list-disc mr-6 space-y-1">
-            <li>يجب أن يحتوي الملف على الأعمدة التالية: category, clue1, clue2, answer, letterCount</li>
-            <li>category: اسم فئة اللعبة (مثال: بحر حرب، تنقيص حرف، إلخ)</li>
-            <li>clue1: التلميح الأول للسؤال</li>
-            <li>clue2: التلميح الثاني للسؤال</li>
-            <li>answer: الإجابة الصحيحة</li>
-            <li>letterCount: عدد حروف الإجابة</li>
-          </ul>
+          <div className="bg-blue-50 p-4 rounded-md mb-4">
+            <h4 className="text-blue-800 font-bold mb-2">الأعمدة الأساسية لجميع الألعاب:</h4>
+            <ul className="list-disc mr-6 space-y-1">
+              <li>category: اسم فئة اللعبة (مثال: بحر حرب، تخمين أسماء، معادلة، أكمل المثل، من أنا، صور)</li>
+              <li>clue1: التلميح الأول للسؤال</li>
+              <li>clue2: التلميح الثاني للسؤال</li>
+              <li>answer: الإجابة الصحيحة</li>
+              <li>letterCount: عدد حروف الإجابة</li>
+            </ul>
+          </div>
+          
+          <div className="bg-green-50 p-4 rounded-md mb-4">
+            <h4 className="text-green-800 font-bold mb-2">أعمدة إضافية للعبة "أكمل المثل":</h4>
+            <ul className="list-disc mr-6 space-y-1">
+              <li>missingText: النص المفقود الذي يجب على اللاعب إكماله</li>
+            </ul>
+          </div>
+          
+          <div className="bg-purple-50 p-4 rounded-md mb-4">
+            <h4 className="text-purple-800 font-bold mb-2">أعمدة إضافية للعبة "من أنا":</h4>
+            <ul className="list-disc mr-6 space-y-1">
+              <li>extraClue1, extraClue2, extraClue3, extraClue4, extraClue5, extraClue6: التلميحات الإضافية للشخصية (ست تلميحات)</li>
+            </ul>
+          </div>
+          
+          <div className="bg-yellow-50 p-4 rounded-md mb-4">
+            <h4 className="text-yellow-800 font-bold mb-2">أعمدة إضافية للعبة "صور":</h4>
+            <ul className="list-disc mr-6 space-y-1">
+              <li>imageUrl: رابط URL للصورة المراد عرضها في السؤال</li>
+            </ul>
+          </div>
         </div>
         
         {/* زر إعادة ضبط الأسئلة */}
