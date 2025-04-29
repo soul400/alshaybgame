@@ -81,38 +81,49 @@ const GameContent = ({ question, showAnswer, onShowAnswer }: GameContentProps) =
   );
   
   // محتوى لعبة "من أنا"
-  const renderWhoAmIContent = () => (
-    <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        {extraCluesList.map((clue, index) => (
-          <div key={index} className="bg-purple-50 border-2 border-purple-200 p-4 rounded-lg shadow-sm">
-            <h3 className="text-md font-bold mb-2 text-purple-800 bg-purple-100 rounded-md px-3 py-1 inline-block">معلومة {index + 1}</h3>
-            <p className="text-lg text-gray-900 mt-2">{clue}</p>
-          </div>
-        ))}
-        
-        {/* عرض التلميحات الأساسية إذا لم تتوفر تلميحات إضافية */}
-        {extraCluesList.length === 0 && (
-          <>
-            <div className="bg-purple-50 border-2 border-purple-200 p-4 rounded-lg shadow-sm">
-              <h3 className="text-md font-bold mb-2 text-purple-800 bg-purple-100 rounded-md px-3 py-1 inline-block">معلومة 1</h3>
-              <p className="text-lg text-gray-900 mt-2">{question.clue1}</p>
-            </div>
-            <div className="bg-purple-50 border-2 border-purple-200 p-4 rounded-lg shadow-sm">
-              <h3 className="text-md font-bold mb-2 text-purple-800 bg-purple-100 rounded-md px-3 py-1 inline-block">معلومة 2</h3>
-              <p className="text-lg text-gray-900 mt-2">{question.clue2}</p>
-            </div>
-          </>
-        )}
-      </div>
+  const renderWhoAmIContent = () => {
+    // إنشاء مصفوفة دائماً من 6 عناصر
+    let displayClues: string[] = [];
+    
+    // استخدام التلميحات الإضافية إذا وجدت
+    if (extraCluesList.length > 0) {
+      displayClues = [...extraCluesList];
+    }
+    
+    // إضافة التلميحات الأساسية إذا لم تكتمل المصفوفة
+    if (displayClues.length < 6) {
+      if (displayClues.length === 0) {
+        displayClues.push(question.clue1, question.clue2);
+      }
       
-      <div className="text-center mb-8 mt-4">
-        <div className="bg-purple-800 inline-block px-8 py-4 rounded-lg">
-          <h3 className="text-xl font-bold text-white mb-2">من أنا؟</h3>
+      // إكمال المصفوفة إلى 6 عناصر
+      while (displayClues.length < 6) {
+        displayClues.push("");
+      }
+    }
+    
+    // اقتصار العدد على 6 في حال كانت أكثر من ذلك
+    displayClues = displayClues.slice(0, 6);
+    
+    return (
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          {displayClues.map((clue, index) => (
+            <div key={index} className="bg-purple-50 border-2 border-purple-200 p-4 rounded-lg shadow-sm">
+              <h3 className="text-md font-bold mb-2 text-purple-800 bg-purple-100 rounded-md px-3 py-1 inline-block">معلومة {index + 1}</h3>
+              <p className="text-lg text-gray-900 mt-2">{clue || "..."}</p>
+            </div>
+          ))}
         </div>
-      </div>
-    </>
-  );
+        
+        <div className="text-center mb-8 mt-4">
+          <div className="bg-purple-800 inline-block px-8 py-4 rounded-lg">
+            <h3 className="text-xl font-bold text-white mb-2">من أنا؟</h3>
+          </div>
+        </div>
+      </>
+    );
+  };
   
   // محتوى لعبة "صور"
   const renderImageContent = () => (

@@ -4,8 +4,10 @@ import { useLocation } from "wouter";
 import GameCard from "@/components/GameCard";
 import ScoreBoard from "@/components/ScoreBoard";
 import DataImport from "@/components/DataImport";
+import AddImageQuestionModal from "@/components/AddImageQuestionModal";
 import { useGameContext } from "@/context/GameContext";
 import { playWelcomeSound, playCardClickSound } from "@/lib/soundEffects";
+import { type GameCategory } from "@shared/schema";
 
 const HomePage = () => {
   const [_, setLocation] = useLocation();
@@ -72,6 +74,19 @@ const HomePage = () => {
 
       {/* Score Board */}
       <ScoreBoard />
+
+      {/* إضافة أسئلة الصور مباشرة */}
+      <div className="bg-white rounded-xl shadow-lg p-6 my-8">
+        <h2 className="text-2xl font-bold text-center border-b border-gray-200 pb-4 mb-6">
+          إضافة مباشرة لأسئلة لعبة الصور
+        </h2>
+        <div className="flex justify-center">
+          <AddImageQuestionModal />
+        </div>
+        <p className="text-center text-gray-500 mt-4 text-sm">
+          يمكنك استخدام هذا الخيار لإضافة أسئلة مع صور مباشرة من جهازك بدلاً من استيرادها من ملف Excel
+        </p>
+      </div>
 
       {/* Data Import */}
       <DataImport />
