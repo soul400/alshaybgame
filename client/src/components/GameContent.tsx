@@ -61,33 +61,33 @@ const GameContent = ({ question, showAnswer, onShowAnswer }: GameContentProps) =
   );
   
   // محتوى لعبة "أكمل المثل"
-  const renderCompleteProverbContent = () => (
-    <>
-      <div className="mb-6">
-        <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg shadow-sm">
-          <h3 className="text-2xl font-bold mb-4 text-yellow-800 bg-yellow-100 rounded-md px-3 py-1 inline-block">المثل</h3>
-          <p className="text-2xl text-gray-900 mt-4 text-center leading-relaxed font-medium">
-            {question.clue1} <span className="bg-red-100 px-3 py-1 rounded-lg text-red-600 mx-2 border border-red-200 animate-pulse">؟؟؟</span> {question.clue2}
-          </p>
-          
-          {question.missingText && (
-            <div className="mt-6 text-center bg-yellow-100 py-3 px-4 rounded-lg border border-yellow-300">
-              <p className="text-md text-yellow-800">
-                <span className="font-bold ml-2">الكلمة المفقودة:</span>  
-                <span className="font-semibold">{question.missingText}</span>
-              </p>
+  const renderCompleteProverbContent = () => {
+    // إنشاء نقاط متعددة بعدد حروف الكلمة المفقودة
+    const letterCount = question.letterCount || 3;
+    const dots = Array(letterCount).fill('.').join(' ');
+    
+    return (
+      <>
+        <div className="mb-6">
+          <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg shadow-sm">
+            <div className="flex justify-end">
+              <h3 className="text-xl font-bold mb-4 text-yellow-800 bg-yellow-100 rounded-md px-3 py-1">المثل</h3>
             </div>
-          )}
-        </div>
-        
-        <div className="text-center mt-6">
-          <div className="bg-amber-600 inline-block px-8 py-4 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold text-white mb-2">أكمل المثل</h3>
+            
+            <p className="text-2xl text-gray-900 mt-8 text-center leading-relaxed font-medium">
+              {question.clue1} <span className="bg-pink-100 px-3 py-1 rounded-lg text-pink-600 mx-2 border border-pink-200 animate-pulse">{dots}</span> {question.clue2}
+            </p>
+          </div>
+          
+          <div className="text-center mt-8">
+            <button className="bg-amber-500 hover:bg-amber-600 inline-block px-8 py-4 rounded-lg shadow-md transition-colors">
+              <h3 className="text-xl font-bold text-white">أكمل المثل</h3>
+            </button>
           </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  };
   
   // محتوى لعبة "من أنا"
   const renderWhoAmIContent = () => {
@@ -192,10 +192,19 @@ const GameContent = ({ question, showAnswer, onShowAnswer }: GameContentProps) =
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-accent inline-block px-8 py-4 rounded-lg">
-            <h3 className="text-xl font-bold text-white mb-2">الإجابة</h3>
-            <p className="text-3xl font-bold text-white">{question.answer}</p>
-          </div>
+          {categoryName === "أكمل المثل" && question.missingText ? (
+            <div className="bg-green-600 inline-block px-8 py-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-bold text-white mb-2">الإجابة</h3>
+              <p className="text-3xl font-bold text-white" dir="rtl">
+                {question.clue1} <span className="text-yellow-200 px-2 mx-1 underline decoration-2 decoration-yellow-300">{question.missingText}</span> {question.clue2}
+              </p>
+            </div>
+          ) : (
+            <div className="bg-accent inline-block px-8 py-4 rounded-lg">
+              <h3 className="text-xl font-bold text-white mb-2">الإجابة</h3>
+              <p className="text-3xl font-bold text-white">{question.answer}</p>
+            </div>
+          )}
         </motion.div>
       ) : null}
 
