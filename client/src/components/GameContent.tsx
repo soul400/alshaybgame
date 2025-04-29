@@ -66,15 +66,24 @@ const GameContent = ({ question, showAnswer, onShowAnswer }: GameContentProps) =
       <div className="mb-6">
         <div className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg shadow-sm">
           <h3 className="text-2xl font-bold mb-4 text-yellow-800 bg-yellow-100 rounded-md px-3 py-1 inline-block">المثل</h3>
-          <p className="text-2xl text-gray-900 mt-4 text-center leading-10 font-medium">
-            {question.clue1} <span className="bg-red-100 px-3 rounded-lg text-red-600 mx-2">؟؟؟</span> {question.clue2}
+          <p className="text-2xl text-gray-900 mt-4 text-center leading-relaxed font-medium">
+            {question.clue1} <span className="bg-red-100 px-3 py-1 rounded-lg text-red-600 mx-2 border border-red-200 animate-pulse">؟؟؟</span> {question.clue2}
           </p>
           
           {question.missingText && (
-            <div className="mt-4 text-center">
-              <p className="text-md text-gray-600">المطلوب: <span className="font-bold">{question.missingText}</span></p>
+            <div className="mt-6 text-center bg-yellow-100 py-3 px-4 rounded-lg border border-yellow-300">
+              <p className="text-md text-yellow-800">
+                <span className="font-bold ml-2">الكلمة المفقودة:</span>  
+                <span className="font-semibold">{question.missingText}</span>
+              </p>
             </div>
           )}
+        </div>
+        
+        <div className="text-center mt-6">
+          <div className="bg-amber-600 inline-block px-8 py-4 rounded-lg shadow-md">
+            <h3 className="text-xl font-bold text-white mb-2">أكمل المثل</h3>
+          </div>
         </div>
       </div>
     </>

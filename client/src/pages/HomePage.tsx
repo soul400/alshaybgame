@@ -6,6 +6,7 @@ import ScoreBoard from "@/components/ScoreBoard";
 import DataImport from "@/components/DataImport";
 import AddImageQuestionModal from "@/components/AddImageQuestionModal";
 import AddWhoAmIQuestionModal from "@/components/AddWhoAmIQuestionModal";
+import AddCompleteProverbQuestionModal from "@/components/AddCompleteProverbQuestionModal";
 import { useGameContext } from "@/context/GameContext";
 import { playWelcomeSound, playCardClickSound } from "@/lib/soundEffects";
 import { type GameCategory } from "@shared/schema";
@@ -77,7 +78,7 @@ const HomePage = () => {
       <ScoreBoard />
 
       {/* قسم إضافة الأسئلة المباشرة */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
         {/* إضافة أسئلة الصور مباشرة */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <h2 className="text-2xl font-bold text-center border-b border-gray-200 pb-4 mb-6">
@@ -101,6 +102,19 @@ const HomePage = () => {
           </div>
           <p className="text-center text-gray-500 mt-4 text-sm">
             يمكنك استخدام هذا الخيار لإضافة معلومات الشخصية الست بشكل مباشر بدلاً من استيرادها من ملف Excel
+          </p>
+        </div>
+        
+        {/* إضافة أسئلة أكمل المثل مباشرة */}
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h2 className="text-2xl font-bold text-center border-b border-gray-200 pb-4 mb-6">
+            إضافة مباشرة لأسئلة لعبة أكمل المثل
+          </h2>
+          <div className="flex justify-center">
+            <AddCompleteProverbQuestionModal />
+          </div>
+          <p className="text-center text-gray-500 mt-4 text-sm">
+            يمكنك استخدام هذا الخيار لإضافة أمثال مع تحديد الكلمة المفقودة بدلاً من استيرادها من ملف Excel
           </p>
         </div>
       </div>
