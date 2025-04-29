@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import ImageQuestionForm from "./ImageQuestionForm";
+import { motion } from "framer-motion";
 
 const AddImageQuestionModal = () => {
   const [isOpen, setIsOpen] = useState(false);

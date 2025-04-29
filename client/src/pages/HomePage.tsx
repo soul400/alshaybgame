@@ -14,7 +14,7 @@ const HomePage = () => {
   const { showNotification } = useGameContext();
 
   // Fetch game categories
-  const { data: categories, isLoading: isLoadingCategories } = useQuery({
+  const { data: categories, isLoading: isLoadingCategories } = useQuery<GameCategory[]>({
     queryKey: ["/api/categories"],
   });
 
@@ -59,7 +59,7 @@ const HomePage = () => {
             ))
         ) : (
           // Show game categories
-          categories?.map((category) => (
+          categories?.map((category: GameCategory) => (
             <GameCard
               key={category.id}
               category={category}
