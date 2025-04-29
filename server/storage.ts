@@ -117,9 +117,22 @@ export class MemStorage implements IStorage {
 
   async createGameQuestion(question: InsertGameQuestion): Promise<GameQuestion> {
     const id = this.currentQuestionId++;
-    const newQuestion: GameQuestion = { ...question, id };
-    this.gameQuestions.set(id, newQuestion);
-    return newQuestion;
+    
+    // معالجة الحقول الاختيارية وضمان توافق الأنواع
+    const processedQuestion: GameQuestion = {
+      id,
+      categoryId: question.categoryId,
+      clue1: question.clue1,
+      clue2: question.clue2,
+      answer: question.answer,
+      letterCount: question.letterCount,
+      imageUrl: question.imageUrl || null,
+      extraClues: question.extraClues || null,
+      missingText: question.missingText || null
+    };
+    
+    this.gameQuestions.set(id, processedQuestion);
+    return processedQuestion;
   }
 
   async bulkCreateGameQuestions(questions: InsertGameQuestion[]): Promise<GameQuestion[]> {
@@ -147,7 +160,12 @@ export class MemStorage implements IStorage {
 
   async createPlayer(player: InsertPlayer): Promise<Player> {
     const id = this.currentPlayerId++;
-    const newPlayer: Player = { ...player, id };
+    // التأكد من وجود قيمة score معينة
+    const newPlayer: Player = { 
+      id, 
+      name: player.name, 
+      score: player.score !== undefined ? player.score : 0
+    };
     this.players.set(id, newPlayer);
     return newPlayer;
   }
@@ -167,9 +185,10 @@ export class MemStorage implements IStorage {
   }
 
   async resetAllScores(): Promise<void> {
-    for (const [id, player] of this.players.entries()) {
+    // استخدام forEach بدلاً من for...of للتوافق مع الإصدارات القديمة
+    this.players.forEach((player, id) => {
       this.players.set(id, { ...player, score: 0 });
-    }
+    });
   }
 
   // Penalties
