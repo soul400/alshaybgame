@@ -80,13 +80,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Validate the data from Excel
       const excelData = excelDataSchema.parse(req.body);
       
+      // الحصول على جميع الفئات مسبقاً
+      const allCategories = await storage.getAllGameCategories();
+      
       // Map the Excel data to question format
       const questions = excelData.map(row => {
         const categoryName = row.category;
-        // Find the category ID based on the name
-        const categories = Array.from((storage as any).gameCategories.values());
-        const category = categories.find(cat => cat.name === categoryName);
-        const categoryId = category ? category.id : 1; // Default to first category if not found
+        // البحث عن الفئة المناسبة بالاسم
+        const matchingCategory = allCategories.find(cat => cat.name === categoryName);
+        const categoryId = matchingCategory ? matchingCategory.id : 1; // استخدام المعرف الأول إذا لم يتم العثور على الفئة
         
         // إنشاء كائن الأسئلة الأساسي
         const questionData: any = {
